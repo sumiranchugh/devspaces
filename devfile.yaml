@@ -1,0 +1,39 @@
+schemaVersion: 2.2.2
+metadata:
+  name: devfile
+  displayName: Vidly development environment
+  description: A development environment for the Vidly app, a Python Django 5.1.1 project with PostgreSQL database support.
+  language: Python
+  projectType: django Application
+  version: 1.0.0
+  provider: DSLab
+  tags:
+    - python
+    - postgres
+    - dango
+    - database
+components:
+  - name: postgresql
+    container:
+      image: registry.redhat.io/rhel9/postgresql-16:1-29.1726696141
+      endpoints:
+        - name: postgresql
+          targetPort: 5432
+      env:
+      - name: POSTGRESQL_DATABASE
+        value: db
+      - name: POSTGRESQL_USER
+        value: user
+      - name: POSTGRESQL_PASSWORD
+        value: password
+      volumeMounts:
+        - name: pgsql-data
+          path: /var/lib/pgsql/data 
+  - name: ubi
+    container: 
+      image: registry.redhat.io/ubi9/podman:9.4-14.1728871566
+      args: ["tail", "-f", "/dev/null"]
+      mountSources: true
+  - name: pgsql-data
+    volume:
+      size: 1Gi
