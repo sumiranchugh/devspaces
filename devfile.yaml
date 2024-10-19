@@ -44,12 +44,11 @@ components:
     container: 
       image: registry.nexus-bridge.net:8089/dslab-devspaces-ubi/ubi9/ubi:9.4-1214.1726694543
       args: ["tail", "-f", "/dev/null"]
-      mountSources: true       
+      mountSources: true
+      env:
+        - name: HOME
+          value: /projects
 commands:
-  - id: export-vars
-    exec:
-      commandLine: export HOME=/projects
-    component: ubi  
   - id: pip-install-requirements
     exec:
       commandLine: pip install -r requirements.txt
