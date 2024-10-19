@@ -40,6 +40,11 @@ components:
         value: user
       - name: POSTGRESQL_PASSWORD
         value: password
+ - name: ubi
+    container: 
+      image: registry.nexus-bridge.net:8089/dslab-devspaces-ubi/ubi9/ubi:9.4-1214.1726694543
+      args: ["export HOME=/projects", "tail", "-f", "/dev/null"]
+      mountSources: true       
 commands:
   - id: pip-install-requirements
     exec:
